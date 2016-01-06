@@ -14,7 +14,7 @@ require_once('../Connections/conn.php');
 //mysql_query('SET NAMES big5');
 //mysql_query('SET CHARACTER_SET_CLIENT=big5');
 //mysql_query('SET CHARACTER_SET_RESULTS=big5');
-$Rlt = $db->query("SELECT `Paper_serial`, `Member`, `Topic`, `Class`, `Group` FROM `upload`");
+$Rlt = $db->query("SELECT `paper_serial`, `member`, `topic`, `class`, `group` FROM `upload`");
 while ($row = mysql_fetch_assoc($Rlt)) {
     if ((++$i) % 2 != 0)						
         $bgColor = '#ffffcc';
@@ -26,7 +26,7 @@ while ($row = mysql_fetch_assoc($Rlt)) {
     else
         $Group = '口頭發表組';
 
-    echo "<tr align=center bgcolor=$bgColor><td>$row[Paper_serial]</td><td>$row[Member]</td><td>$row[Topic]</td><td>$row[Class]</td><td>$Group</td></tr>";
+    echo "<tr align=center bgcolor=$bgColor><td>$row[paper_serial]</td><td>$row[member]</td><td>$row[topic]</td><td>$row[class]</td><td>$Group</td></tr>";
 }
 ?>
 </table>

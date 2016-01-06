@@ -28,22 +28,22 @@ $totalRows_paper = mysql_num_rows($paper);
   </tr>
   <?php do { ?>
   <tr>
-    <td><div align="center"><?php echo $row_paper['Paper_serial']; ?></div></td>
-    <td><?php echo $row_paper['Topic']; ?></td>
-    <td><?php echo $row_paper['Author1'].'-'.$row_paper['Author1_email']; ?>
-      <?php echo strcmp($row_paper['Author2'],'')?'<br>'.$row_paper['Author2'].'-'.$row_paper['Author2_email']:''; ?>
-      <?php echo strcmp($row_paper['Author3'],'')?'<br>'.$row_paper['Author3'].'-'.$row_paper['Author3_email']:''; ?>
-      <?php echo strcmp($row_paper['Author4'],'')?'<br>'.$row_paper['Author4'].'-'.$row_paper['Author4_email']:''; ?>
-      <?php echo strcmp($row_paper['Author5'],'')?'<br>'.$row_paper['Author5'].'-'.$row_paper['Author5_email']:''; ?></td>
+    <td><div align="center"><?php echo $row_paper['paper_serial']; ?></div></td>
+    <td><?php echo $row_paper['topic']; ?></td>
+    <td><?php echo $row_paper['author1'].'-'.$row_paper['author1_email']; ?>
+      <?php echo strcmp($row_paper['author2'],'')?'<br>'.$row_paper['author2'].'-'.$row_paper['author2_email']:''; ?>
+      <?php echo strcmp($row_paper['author3'],'')?'<br>'.$row_paper['author3'].'-'.$row_paper['author3_email']:''; ?>
+      <?php echo strcmp($row_paper['author4'],'')?'<br>'.$row_paper['author4'].'-'.$row_paper['author4_email']:''; ?>
+      <?php echo strcmp($row_paper['author5'],'')?'<br>'.$row_paper['author5'].'-'.$row_paper['author5_email']:''; ?></td>
     <td><?php if($row_paper['receive'] == 'a') echo "Oral"; else echo "Poster";?></td>
-    <td><?php echo !strcmp($row_paper['Group'],'oral')?'口頭發表組':'網路發表組'; ?></td>
-    <td><?php echo $row_paper['Class']; ?></td>
-    <td><div align="center"><?php if(!strcmp($row_paper['camready'],'y')) echo '<a href="../upload/'.$row_paper['Member'].'/csclcspl_paper_'.$row_paper['Paper_serial'].'.doc" target="_blank"><img src="../images/menu/pdf.gif" border="0"></a>'; ?>
+    <td><?php echo !strcmp($row_paper['group'],'oral')?'口頭發表組':'網路發表組'; ?></td>
+    <td><?php echo $row_paper['class']; ?></td>
+    <td><div align="center"><?php if(!strcmp($row_paper['camready'],'y')) echo '<a href="../upload/'.$row_paper['member'].'/csclcspl_paper_'.$row_paper['paper_serial'].'.doc" target="_blank"><img src="../images/menu/pdf.gif" border="0"></a>'; ?>
     </div></td>
-    <td><div align="center"><?php if(!strcmp($row_paper['camready'],'y')) echo '<a href="../upload/'.$row_paper['Member'].'/csclcspl_abstract_'.$row_paper['Paper_serial'].'.doc" target="_blank"><img src="../images/menu/pdf.gif" border="0"></a>'; ?>
+    <td><div align="center"><?php if(!strcmp($row_paper['camready'],'y')) echo '<a href="../upload/'.$row_paper['member'].'/csclcspl_abstract_'.$row_paper['paper_serial'].'.doc" target="_blank"><img src="../images/menu/pdf.gif" border="0"></a>'; ?>
     </div></td>
     <td><form action="acceptedmodify.php" method="post" name="modify" target="_self" id="modify">
-      <input type="hidden" name="Paper_serial" value="<?php echo $row_paper['Paper_serial']; ?>">
+      <input type="hidden" name="Paper_serial" value="<?php echo $row_paper['paper_serial']; ?>">
         
       <div align="center"><input name="imageField" type="image" src="../images/menu/modify.gif" width="16" height="16" border="0"></div>
     </form></td>

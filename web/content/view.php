@@ -48,7 +48,7 @@ if (isset($_SESSION['MM_Username'])) {
   $colname_view = (get_magic_quotes_gpc()) ? $_SESSION['MM_Username'] : addslashes($_SESSION['MM_Username']);
 }
 mysql_select_db($database_conn, $conn);
-$query_view = sprintf("SELECT Paper_serial, Topic, File_paper, File_abstract FROM upload WHERE Member = '%s'", $colname_view);
+$query_view = sprintf("SELECT paper_serial, topic, file_paper, file_abstract FROM upload WHERE member = '%s'", $colname_view);
 $view = mysql_query($query_view, $conn) or die(mysql_error());
 $row_view = mysql_fetch_assoc($view);
 $totalRows_view = mysql_num_rows($view);
@@ -83,10 +83,10 @@ $totalRows_view = mysql_num_rows($view);
           </tr>
           <?php do { ?>
           <tr>
-            <td class="content"><div align="center"><?php echo $row_view['Paper_serial']; ?></div></td>
+            <td class="content"><div align="center"><?php echo $row_view['paper_serial']; ?></div></td>
             <td class="content"><?php echo $row_view['Topic']; ?></td>
-            <td><div align="center"><a href="../../upload/<?php echo $_SESSION['MM_Username']."/paper-".$row_view['Paper_serial'].".pdf"; ?>" target="_blank"><img src="../../images/menu/pdf.gif" border="0"></a></div></td>
-            <td><div align="center"><a href="../../upload/<?php echo $_SESSION['MM_Username']."/abstract-".$row_view['Paper_serial'].".pdf"; ?>" target="_blank"><img src="../../images/menu/pdf.gif" border="0"></a></div></td>
+            <td><div align="center"><a href="../../upload/<?php echo $_SESSION['MM_Username']."/paper-".$row_view['paper_serial'].".pdf"; ?>" target="_blank"><img src="../../images/menu/pdf.gif" border="0"></a></div></td>
+            <td><div align="center"><a href="../../upload/<?php echo $_SESSION['MM_Username']."/abstract-".$row_view['paper_serial'].".pdf"; ?>" target="_blank"><img src="../../images/menu/pdf.gif" border="0"></a></div></td>
           </tr>
           <?php } while ($row_view = mysql_fetch_assoc($view)); ?>
       </table>

@@ -26,7 +26,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 if ((isset($_POST['ID'])) && ($_POST['ID'] != "")) {
-  $deleteSQL = sprintf("DELETE FROM referee WHERE ID=%s",
+  $deleteSQL = sprintf("DELETE FROM referee WHERE id=%s",
                        GetSQLValueString($_POST['ID'], "text"));
 
   mysql_select_db($database_conn, $conn);

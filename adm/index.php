@@ -16,8 +16,10 @@ echo <<<EOT
   <tr><td bgColor = "#CCCCFF" width = "100%"><font color = "#FFFFFF">◤ Login Interface</font></td></tr>
   <tr><td><div align = "center">
     <table border = "0" cellPadding = "2" cellSpacing = "0" width = "100%">
-      <tr><td align = "right" width = "50%">AdminID : </td><td align = "left" width = "50%"><input name = "username" type = "text" id = "username" size = "15" maxlength = "50" class = "txt"></td></tr>
-      <tr><td align = "right">Password : </td><td align = "left"><input name = "password" type = "password" id = "password" size = "16" maxlength = "50" class = "txt"></td></tr>
+      <tr><td align = "right" width = "50%">AdminID : </td><td align = "left" width = "50%">
+          <input name = "username" type = "text" id = "username" size = "15" maxlength = "50" class = "txt"></td></tr>
+      <tr><td align = "right">Password : </td><td align = "left">
+          <input name = "password" type = "password" id = "password" size = "16" maxlength = "50" class = "txt"></td></tr>
     </table>
     <br><input type = "submit" name = "Submit" value = "Login" class = "btm">
   </div></td></tr>

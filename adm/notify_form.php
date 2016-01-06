@@ -78,15 +78,17 @@ function popUpWindow(URLStr)
 	foreach($refarray as $key => $value)
 	{
 		$value++;
-		$query_ID = sprintf("SELECT name, alart FROM referee WHERE ID='%s'",$key);
+		$query_ID = sprintf("SELECT name, alart FROM referee WHERE id='%s'",$key);
 		$ID = mysql_query($query_ID, $conn) or die(mysql_error());
 		$row_ID = mysql_fetch_assoc($ID);
 		$totalRows_ID = mysql_num_rows($ID);
 		if($totalRows_ID){
-			echo '<form name="form1" method="post" action="notify.php" target="notify" onSubmit="popUpWindow(\'process.htm\');"><tr><td rowspan="'.$value.'">'.++$num.'</td><td rowspan="'.$value.'">'
+			echo '<form name="form1" method="post" action="notify.php" target="notify" onSubmit="popUpWindow(\'process.htm\');">'
+                                . '<tr><td rowspan="'.$value.'">'.++$num.'</td><td rowspan="'.$value.'">'
 				 .$row_ID['name'].'</td><td>編號</td><td>標題</td><td>已審核</td><td rowspan="'.$value.'">';
 			if(!strcmp($row_ID['alart'],'y')) echo '是';else echo '否';
-			echo '</td><td rowspan="'.$value.'"><input name="again" type="radio" value="1" checked>再提醒<br><input name="again" type="radio" value="0">通知</td><td rowspan="'.$value.'"><input type="hidden" name="id" value="'.$key.'"><input type="submit" name="Submit" value="送出"></td></tr>';
+			echo '</td><td rowspan="'.$value.'"><input name="again" type="radio" value="1" checked>再提醒<br>'
+                                . '<input name="again" type="radio" value="0">通知</td><td rowspan="'.$value.'"><input type="hidden" name="id" value="'.$key.'"><input type="submit" name="Submit" value="送出"></td></tr>';
 			$tmp[0]=0;
 			$z=0;
 			for($j=0;$j<$index;$j++)
@@ -100,10 +102,10 @@ function popUpWindow(URLStr)
 			for($i=0;$i<$value-1;$i++)
 			{
 				echo '<tr><td width="5%">'.$distri[$tmp[$i]]['paper'].'</td><td>';
-				$query_topic = sprintf("SELECT Topic FROM upload WHERE Paper_serial='%d'",$distri[$tmp[$i]]['paper']);
+				$query_topic = sprintf("SELECT topic FROM upload WHERE paper_serial='%d'",$distri[$tmp[$i]]['paper']);
 				$topic = mysql_query($query_topic, $conn) or die(mysql_error());
 				$row_topic = mysql_fetch_assoc($topic);
-				echo $row_topic['Topic'].'</td><td width="7%">';
+				echo $row_topic['topic'].'</td><td width="7%">';
 				if(!strcmp($distri[$tmp[$i]]['referee1'],$key)){if(!strcmp($distri[$tmp[$i]]['finish1'],'y'))
 				echo '是<input type="hidden" name="list'.$i.'" value="'.$distri[$tmp[$i]]['paper'].'">';
 				else echo '否<input type="hidden" name="list'.$i.'" value="'.$distri[$tmp[$i]]['paper'].'">';}

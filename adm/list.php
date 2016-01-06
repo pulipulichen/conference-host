@@ -34,7 +34,7 @@ $totalRows_memberlist = mysql_num_rows($memberlist);
     <td><?php echo $row_memberlist['phone']; ?>&nbsp;</td>
     <td><?php echo $row_memberlist['fax']; ?>&nbsp;</td>
     <td><?php 
-$query_paper = sprintf("SELECT * FROM upload WHERE member = '%s'", $row_memberlist['ID']);
+$query_paper = sprintf("SELECT * FROM upload WHERE member = '%s'", $row_memberlist['id']);
 $paper = mysql_query($query_paper, $conn) or die(mysql_error());
 echo mysql_num_rows($paper);
 ?></td>
@@ -44,6 +44,6 @@ echo mysql_num_rows($paper);
 </body>
 </html>
 <?php
-mysql_free_result($memberlist);
+//mysql_free_result($memberlist);
 
-mysql_free_result($paper);
+//mysql_free_result($paper);

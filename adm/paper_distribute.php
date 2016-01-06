@@ -74,7 +74,7 @@ if (isset($_GET['pageNum_paper'])) {
 $startRow_paper = $pageNum_paper * $maxRows_paper;
 
 mysql_select_db($database_conn, $conn);
-$query_paper = "SELECT Paper_serial, Member, Topic, `Class`, `Group` FROM upload";
+$query_paper = "SELECT paper_serial, member, topic, `class`, `group` FROM upload";
 $query_limit_paper = sprintf("%s LIMIT %d, %d", $query_paper, $startRow_paper, $maxRows_paper);
 $paper = mysql_query($query_limit_paper, $conn) or die(mysql_error());
 $row_paper = mysql_fetch_assoc($paper);
@@ -88,7 +88,7 @@ if (isset($_GET['totalRows_paper'])) {
 $totalPages_paper = ceil($totalRows_paper/$maxRows_paper)-1;
 
 mysql_select_db($database_conn, $conn);
-$query_referee = "SELECT ID, name, location, profession FROM referee ORDER BY name ASC";
+$query_referee = "SELECT id, name, location, profession FROM referee ORDER BY name ASC";
 $referee = mysql_query($query_referee, $conn) or die(mysql_error());
 $row_referee = mysql_fetch_assoc($referee);
 $totalRows_referee = mysql_num_rows($referee);
@@ -176,35 +176,35 @@ body,td,th {
   </tr>
   <?php do { 
 	foreach($dis_ed as $value){
-		if($value==$row_paper['Paper_serial'])
+		if($value==$row_paper['paper_serial'])
 		{ $update=true;}}?>
   <tr bgcolor="#FFFFCC">
-    <td><?php echo $row_paper['Paper_serial']; ?></td>
-    <td><?php echo $row_paper['Member']; ?></td>
-    <td><?php echo $row_paper['Topic']; ?></td>
-    <td><?php echo $row_paper['Class']; ?></td>
-    <td><?php if(!strcmp('oral',$row_paper['Group'])){echo '口頭發表組';}else{echo '網路發表組';} ?></td>
+    <td><?php echo $row_paper['paper_serial']; ?></td>
+    <td><?php echo $row_paper['member']; ?></td>
+    <td><?php echo $row_paper['topic']; ?></td>
+    <td><?php echo $row_paper['class']; ?></td>
+    <td><?php if(!strcmp('oral',$row_paper['group'])){echo '口頭發表組';}else{echo '網路發表組';} ?></td>
     <td><form action="<?php echo $editFormAction; ?>" method="POST" name="referee" id="referee" onSubmit="refresh()">
-    <input name="paper" type="hidden" value="<?php echo $row_paper['Paper_serial']; ?>">
+    <input name="paper" type="hidden" value="<?php echo $row_paper['paper_serial']; ?>">
         <select name="ref[]" id="ref1" onChange="displayreferee(this)">
 		  <option value="" selected>審稿者一</option>
           <?php
-do {  if(!strcmp('network',$row_paper['Group'])){
-	echo '<option value="'.$row_referee['ID'].'"';
+do {  if(!strcmp('network',$row_paper['group'])){
+	echo '<option value="'.$row_referee['id'].'"';
 	if(isset($update)){ 
-		$query_distribute = sprintf("SELECT * FROM paper_distribute WHERE paper=%s",$row_paper['Paper_serial']);
+		$query_distribute = sprintf("SELECT * FROM paper_distribute WHERE paper=%s",$row_paper['paper_serial']);
 		$distribute = mysql_query($query_distribute, $conn) or die(mysql_error());
 		$row_distribute = mysql_fetch_assoc($distribute);
-		if(!strcmp($row_distribute['referee1'],$row_referee['ID']))echo ' selected';
+		if(!strcmp($row_distribute['referee1'],$row_referee['id']))echo ' selected';
 	}
 	echo '>'.$row_referee['name'].'</option>';
-}elseif(!strcmp('oral',$row_paper['Group']) && !strcmp('oral',$row_referee['location'])){
-	echo '<option value="'.$row_referee['ID'].'"';
+}elseif(!strcmp('oral',$row_paper['group']) && !strcmp('oral',$row_referee['location'])){
+	echo '<option value="'.$row_referee['id'].'"';
 	if(isset($update)){ 
-		$query_distribute = sprintf("SELECT * FROM paper_distribute WHERE paper=%s",$row_paper['Paper_serial']);
+		$query_distribute = sprintf("SELECT * FROM paper_distribute WHERE paper=%s",$row_paper['paper_serial']);
 		$distribute = mysql_query($query_distribute, $conn) or die(mysql_error());
 		$row_distribute = mysql_fetch_assoc($distribute);
-		if(!strcmp($row_distribute['referee1'],$row_referee['ID']))echo ' selected';
+		if(!strcmp($row_distribute['referee1'],$row_referee['id']))echo ' selected';
 	}
 	echo '>'.$row_referee['name'].'</option>';
 }} while ($row_referee = mysql_fetch_assoc($referee));
@@ -218,22 +218,24 @@ do {  if(!strcmp('network',$row_paper['Group'])){
         <select name="ref[]" id="ref2" onChange="displayreferee(this)">
 		  <option value="" selected>審稿者二</option>
           <?php
-do {  if(!strcmp('network',$row_paper['Group'])){
-	echo '<option value="'.$row_referee['ID'].'"';
+do {  if(!strcmp('network',$row_paper['group'])){
+	echo '<option value="'.$row_referee['id'].'"';
 	if(isset($update)){ 
-		$query_distribute = sprintf("SELECT * FROM paper_distribute WHERE paper=%s",$row_paper['Paper_serial']);
+		$query_distribute = sprintf("SELECT * FROM paper_distribute WHERE paper=%s",$row_paper['paper_serial']);
 		$distribute = mysql_query($query_distribute, $conn) or die(mysql_error());
 		$row_distribute = mysql_fetch_assoc($distribute);
-		if(!strcmp($row_distribute['referee2'],$row_referee['ID']))echo ' selected';
+		if(!strcmp($row_distribute['referee2'],$row_referee['id'])) { 
+                    echo ' selected';
+                }
 	}
 	echo '>'.$row_referee['name'].'</option>';
-}elseif(!strcmp('oral',$row_paper['Group']) && !strcmp('oral',$row_referee['location'])){
-	echo '<option value="'.$row_referee['ID'].'"';
+}elseif(!strcmp('oral',$row_paper['group']) && !strcmp('oral',$row_referee['location'])){
+	echo '<option value="'.$row_referee['id'].'"';
 	if(isset($update)){ 
-		$query_distribute = sprintf("SELECT * FROM paper_distribute WHERE paper=%s",$row_paper['Paper_serial']);
+		$query_distribute = sprintf("SELECT * FROM paper_distribute WHERE paper=%s",$row_paper['paper_serial']);
 		$distribute = mysql_query($query_distribute, $conn) or die(mysql_error());
 		$row_distribute = mysql_fetch_assoc($distribute);
-		if(!strcmp($row_distribute['referee2'],$row_referee['ID']))echo ' selected';
+		if(!strcmp($row_distribute['referee2'],$row_referee['id']))echo ' selected';
 	}
 	echo '>'.$row_referee['name'].'</option>';
 }} while ($row_referee = mysql_fetch_assoc($referee));
@@ -267,9 +269,8 @@ do {  if(!strcmp('network',$row_paper['Group'])){
 </body>
 </html>
 <?php
-mysql_free_result($paper);
+//mysql_free_result($paper);
 
-mysql_free_result($referee);
+//mysql_free_result($referee);
 
-mysql_free_result($distribute);
-?>
+//mysql_free_result($distribute);

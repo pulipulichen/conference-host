@@ -1,7 +1,7 @@
 <?php require_once('../../Connections/conn.php'); ?>
 <?php
 mysql_select_db($database_conn, $conn);
-$query_paper = "SELECT Paper_serial, Topic FROM upload WHERE receive = 'a'";
+$query_paper = "SELECT paper_serial, Topic FROM upload WHERE receive = 'a'";
 $paper = mysql_query($query_paper, $conn) or die(mysql_error());
 $row_paper = mysql_fetch_assoc($paper);
 $totalRows_paper = mysql_num_rows($paper);
@@ -34,8 +34,8 @@ $totalRows_paper = mysql_num_rows($paper);
           if(($i++)%2) echo '<tr bgcolor="#DDEEFF"';
 		  else echo '<tr bgcolor="#FFFFFF"';
 		  ?> class="content">
-                  <td><?php echo $row_paper['Paper_serial']; ?></td>
-                  <td><?php echo $row_paper['Topic']; ?></td>
+                  <td><?php echo $row_paper['paper_serial']; ?></td>
+                  <td><?php echo $row_paper['topic']; ?></td>
           </tr>
           <?php } while ($row_paper = mysql_fetch_assoc($paper)); ?>
       </table>

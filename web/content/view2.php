@@ -29,12 +29,6 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   } 
   return $isValid; 
 }
-function isCameraready($paper) {
-    if(file_exists('../../upload/'.$_SESSION['MM_Username'].'/paper-'.$paper.'.pdf'))
-        return true;
-    else
-        return false;
-}
 
 $MM_restrictGoTo = "login.php";
 if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
@@ -54,7 +48,7 @@ if (isset($_SESSION['MM_Username'])) {
   $colname_view = (get_magic_quotes_gpc()) ? $_SESSION['MM_Username'] : addslashes($_SESSION['MM_Username']);
 }
 mysql_select_db($database_conn, $conn);
-$query_view = sprintf("SELECT Paper_serial, Topic, File_paper, File_abstract, receive FROM upload WHERE Member = '%s'", $colname_view);
+$query_view = sprintf("SELECT paper_serial, topic, file_paper, file_abstract FROM upload WHERE member = '%s'", $colname_view);
 $view = mysql_query($query_view, $conn) or die(mysql_error());
 $row_view = mysql_fetch_assoc($view);
 $totalRows_view = mysql_num_rows($view);
@@ -72,8 +66,7 @@ $totalRows_view = mysql_num_rows($view);
 <DIV id="myMenuID"></DIV>
 <br><DIV class="scoll">
 <table width=100% border=0 cellspacing=10>
-
-        <th class="topic">論文完稿上傳/檢視</th>
+          <th class="topic">檢視論文審稿結果</th>
   <tr>
 	<td class="content"><br>
 	  <?php if ($totalRows_view == 0) { // Show if recordset empty ?>
@@ -85,42 +78,34 @@ $totalRows_view = mysql_num_rows($view);
           <tr class="color">
             <td width="10%"><div align="center">論文編號</div></td>
             <td><div align="center">論文標題</div></td>
-            <td width="12%"><div align="center">論文檔</div></td>
-            <td width="12%"><div align="center">摘要檔</div></td>
-            <td width="10%"><div align="center">上傳</div></td>
-            </tr>
-          <?php do { ?>
-          <tr>
-            <td class="content"><div align="center"><?php echo $row_view['Paper_serial']; ?></div></td>
-            <td class="content"><?php echo $row_view['Topic']; ?></td>
-            <td class="content"><div align="center"><?php 
-				//if(isCameraready($row_view['Paper_serial'])){ 
-				//if(isCameraready($row_view['Paper_serial']) && $row_view['Paper_serial'] != "")
-				if(is_file("../../upload/".$_SESSION['MM_Username'].'/'.$row_view['File_paper']))
-				{
-				?><a href="../../upload/
-<?php 	echo $_SESSION['MM_Username'].'/'.$row_view['File_paper']; ?>" target="_blank"><img src="../../images/menu/pdf.gif" border="0">已上傳</a><?php }else echo '未上傳'; ?></div></td>
-          <td class="content"><div align="center"><?php 
-		  	//if(isCameraready($row_view['Paper_serial'])){
-			//if(isCameraready($row_view['Paper_serial']) && $row_view['File_abstract'] != ""){
-			if(is_file("../../upload/".$_SESSION['MM_Username'].'/'.$row_view['File_abstract'])) {
-				?>
-				<a href="../../upload/<?php 	
-					echo $_SESSION['MM_Username'].'/'.$row_view['File_abstract']; 
-				?>" target="_blank"><img src="../../images/menu/pdf.gif" border="0">已上傳</a>
-				<?php 
-				}
-				else 
-					echo '未上傳'; ?>
-				</div>
-			</td>
-            <td><div align="center">
-                <form name="form1" method="post" action="finalfix.php">
-                    <input name="Paper_serial" type="hidden" id="Paper_serial" value="<?php echo $row_view['Paper_serial']; ?>">
-                    <input type="submit" name="Submit" value="請按此上傳檔案">
-                </form>
-            </div></td>
-            </tr>
+            <td width="10%"><div align="center">審稿者1</div></td>
+            <td width="10%"><div align="center">審稿者2</div></td>
+          </tr>
+          <?php do { 
+						$query_review = sprintf("SELECT * FROM paper_distribute WHERE paper = %d", $row_view['paper_serial']);
+						$review = mysql_query($query_review, $conn) or die(mysql_error());
+						$row_review = mysql_fetch_assoc($review);
+		  ?>
+          <tr class="content">
+            <td><div align="center"><?php echo $row_view['paper_serial']; ?></div></td>
+            <td><?php echo $row_view['Topic']; ?></td>
+            <td><?php
+				if(!strcmp($row_review['referee1'],''))
+					echo '無';
+				elseif(!strcmp($row_review['finish1'],'n'))
+					echo '未完成';
+				else
+					echo '<a href="review2.php?serial='.$row_review['referee1'].$row_view['paper_serial'].'" target="_blank">瀏覽</a>';
+			?></td>
+            <td><?php
+				if(!strcmp($row_review['referee2'],''))
+					echo '無';
+				elseif(!strcmp($row_review['finish2'],'n'))
+					echo '未完成';
+				else
+					echo '<a href="review2.php?serial='.$row_review['referee2'].$row_view['paper_serial'].'" target="_blank">瀏覽</a>';
+			?></td>
+          </tr>
           <?php } while ($row_view = mysql_fetch_assoc($view)); ?>
       </table>
       <?php } // Show if recordset not empty ?><br>

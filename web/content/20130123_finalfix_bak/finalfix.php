@@ -78,14 +78,14 @@ if (isset($_POST['Paper_serial'])) {
   $colname_fix = (get_magic_quotes_gpc()) ? $_POST['Paper_serial'] : addslashes($_POST['Paper_serial']);
 }
 mysql_select_db($database_conn, $conn);
-$query_fix = sprintf("SELECT * FROM upload WHERE Paper_serial = %s", $colname_fix);
+$query_fix = sprintf("SELECT * FROM upload WHERE paper_serial = %s", $colname_fix);
 $fix = mysql_query($query_fix, $conn) or die(mysql_error());
 $row_fix = mysql_fetch_assoc($fix);
 $totalRows_fix = mysql_num_rows($fix);
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update")) {
-  $abstract = "csclcspl_abstract_$colname_fix.doc";	// Final 摘要檔名
-  $paper = "csclcspl_paper_$colname_fix.doc";	// Final 論文檔名
+  $abstract = "csclcspl_abstract_$colname_fix.pdf";	// Final 摘要檔名
+  $paper = "csclcspl_paper_$colname_fix.pdf";	// Final 論文檔名
   $msg='';
   if(isset($_FILES['ulfile']['tmp_name'][0]) && $_FILES['ulfile']['error'][0]!=4) {
     $file=$_FILES['ulfile']['tmp_name'][0];
@@ -101,18 +101,18 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update")) {
 	  }
 	}
 	list ($name,$ext) = split ("[.]", $file_name);
-	if(($ext!='doc' && $ext!='DOC') || $file_type!='application/msword') { 
+	if(($ext!='pdf' && $ext!='PDF') || $file_type!='application/pdf') { 
 	  $msg.="檔案".$file_name."的類型或檔名錯誤，請重新上傳<br>";
 	}
-	// $upfile="../../upload/".$_SESSION['MM_Username']."/ntec-".$row_fix['File_abstract'];
+	// $upfile="../../upload/".$_SESSION['MM_Username']."/ntec-".$row_fix['file_abstract'];
 	$upfile="../../upload/".$_SESSION['MM_Username']."/$abstract";	// 上傳摘要檔
 	if(is_uploaded_file($file)) {
 	  if(!move_uploaded_file($file,$upfile)) {
-		$msg.="伺服器錯誤，檔案".$file_name."無法移至目的，請<a href=\"mailto:csclcspl2013@gmail.com\">聯絡我們</a>，或稍後再上傳";
+		$msg.="伺服器錯誤，檔案".$file_name."無法移至目的，請<a href=\"mailto:cmchen@mail.nhlue.edu.tw\">聯絡我們</a>，或稍後再上傳";
 	  }
 	}
 	elseif($file_error=0) {
-	  $msg.="檔案".$file_name."上傳作業遭遇不明錯誤，請<a href=\"mailto:csclcspl2013@gmail.com\">聯絡我們</a>，或稍後再上傳";
+	  $msg.="檔案".$file_name."上傳作業遭遇不明錯誤，請<a href=\"mailto:cmchen@mail.nhlue.edu.tw\">聯絡我們</a>，或稍後再上傳";
 	}
 	if(isset($success)) {
 	  $success.=$_FILES['ulfile']['name'][0]."上傳成功<br>";
@@ -135,18 +135,18 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update")) {
 	  }
 	}
 	list ($name,$ext) = split ("[.]", $file_name);
-	if(($ext!='doc' && $ext!='DOC') || $file_type!='application/msword') { 
+	if(($ext!='pdf' && $ext!='PDF') || $file_type!='application/pdf') { 
 	  $msg.="檔案".$file_name."的類型或檔名錯誤，請重新上傳<br>";
 	}
-	// $upfile="../../upload/".$_SESSION['MM_Username']."/ntec-".$row_fix['File_paper'];
+	// $upfile="../../upload/".$_SESSION['MM_Username']."/ntec-".$row_fix['file_paper'];
 	$upfile="../../upload/".$_SESSION['MM_Username']."/$paper";	// 上傳論文檔
 	if(is_uploaded_file($file)) {
 	  if(!move_uploaded_file($file,$upfile)) {
-		$msg.="伺服器錯誤，檔案".$file_name."無法移至目的，請<a href=\"mailto:csclcspl2013@gmail.com\">聯絡我們</a>，或稍後再上傳";
+		$msg.="伺服器錯誤，檔案".$file_name."無法移至目的，請<a href=\"mailto:cmchen@mail.nhlue.edu.tw\">聯絡我們</a>，或稍後再上傳";
 	  }
 	}
 	elseif($file_error=0) {
-	  $msg.="檔案".$file_name."上傳作業遭遇不明錯誤，請<a href=\"mailto:csclcspl2013@gmail.com\">聯絡我們</a>，或稍後再上傳";
+	  $msg.="檔案".$file_name."上傳作業遭遇不明錯誤，請<a href=\"mailto:cmchen@mail.nhlue.edu.tw\">聯絡我們</a>，或稍後再上傳";
 	}
 	if(isset($success)) {
 	  $success.=$_FILES['ulfile']['name'][1]."上傳成功<br>";
@@ -156,8 +156,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update")) {
 	}
   }
   if($msg=='') {
-  $presql="UPDATE upload SET Author1=%s, Author1_email=%s, Author2=%s, Author2_email=%s, Author3=%s, Author3_email=%s, Author4=%s, Author4_email=%s, Author5=%s, Author5_email=%s, File_paper=%s, File_abstract=%s, camready='y'";
-  $updateSQL = sprintf($presql." WHERE Paper_serial=%s",
+  $presql="UPDATE upload SET author1=%s, author1_email=%s, author2=%s, author2_email=%s, author3=%s, author3_email=%s, author4=%s, author4_email=%s, author5=%s, author5_email=%s, file_paper=%s, file_abstract=%s, camready='y'";
+  $updateSQL = sprintf($presql." WHERE paper_serial=%s",
                        GetSQLValueString($_POST['Author1'], "text"),
                        GetSQLValueString($_POST['Author1_email'], "text"),
                        GetSQLValueString($_POST['Author2'], "text"),
@@ -197,7 +197,6 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update")) {
 	font-size: 13px;
 	padding: 1px;
 }
-.style5 {color: #FF0000; font-weight: bold; }
 -->
 </style>
 </head>
@@ -345,10 +344,10 @@ else {
           </font></td>
         </tr>
         <tr class="color">
-          <td colspan="5"><p><span class="style1">注意!</span>檔案上傳只限<span class="style1"><strong>doc</strong></span><span class="style5">(Microsoft Word 97-2003格式)</span>檔，上限為<span class="style1">3MB</span>謝謝合作 有問題請email：<a href="mailto:csclcspl2013@gmail.com">csclcspl2013@gmail.com</a><br>
-            上傳之檔案名稱，除了標示副檔名的&quot;<span class="style1">.doc</span>&quot;之外，其餘的&quot;.&quot;將會造成傳檔失敗。<br>
-                <span class="style1">錯誤範例EX: ai.test.doc              </span> </p>
-            <p><img src="../../images/972003doc.gif" width="1004" height="210"></p></td>
+          <td colspan="5"><span class="style1">注意!</span>檔案上傳只限<span class="style1">pdf</span>檔，上限為<span class="style1">3MB</span>謝謝合作 有問題請email：<a href="mialto:csclcspl2013@gmail.com">csclcspl2013@gmail.com</a><br>
+          上傳之檔案名稱，除了標示副檔名的&quot;<span class="style1">.pdf</span>&quot;之外，其餘的&quot;.&quot;將會造成傳檔失敗。<br>
+          <span class="style1">錯誤範例EX: ai.test.pdf
+          </span> </td>
           </tr>
         <tr class="content">
           <td colspan="2" align=right class="content">論文摘要:</td>

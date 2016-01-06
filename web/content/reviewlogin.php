@@ -18,7 +18,7 @@ if (isset($_POST['ID'])) {
   $MM_redirecttoReferrer = true;
   mysql_select_db($database_conn, $conn);
   
-  $LoginRS__query=sprintf("SELECT ID, password FROM referee WHERE ID='%s' AND password='%s'",
+  $LoginRS__query=sprintf("SELECT id, password FROM referee WHERE id='%s' AND password='%s'",
     get_magic_quotes_gpc() ? $loginUsername : addslashes($loginUsername), get_magic_quotes_gpc() ? $password : addslashes($password)); 
    
   $LoginRS = mysql_query($LoginRS__query, $conn) or die(mysql_error());

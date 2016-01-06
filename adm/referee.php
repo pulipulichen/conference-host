@@ -135,7 +135,7 @@ function popUpWindow(URLStr, left, top, width, height)
           </tr>
           <?php do { ?>
           <tr bgcolor="#B9D1EA">
-            <td><span class="style3"><?php echo $row_refree['ID']; ?></span></td>
+            <td><span class="style3"><?php echo $row_refree['id']; ?></span></td>
             <td><span class="style3"><?php echo $row_refree['name']; ?></span></td>
             <td><span class="style3"><?php if(!strcmp('oral',$row_refree['location'])){echo '口頭發表組';}else{echo '網路發表組';} ?></span></td>
             <td><span class="style3"><?php echo $row_refree['profession']; ?></span></td>
@@ -144,11 +144,11 @@ function popUpWindow(URLStr, left, top, width, height)
             <td><span class="style3"><?php echo $row_refree['email']; ?></span></td>
             <td><span class="style3"><?php echo $row_refree['address']; ?></span></td>
             <td><form action="modify.php" method="post" name="modify" target="modify" class="style3" id="modify" onSubmit="popUpWindow('modify.php')">
-              <input name="ID" type="hidden" id="ID" value="<?php echo $row_refree['ID']; ?>">
+              <input name="ID" type="hidden" id="ID" value="<?php echo $row_refree['id']; ?>">
               <input type="submit" name="Submit" value="修改">
                           </form></td>
             <td><form action="delete.php" method="post" name="delete" target="_top" class="style3" id="delete" onSubmit="return confirm('確認要刪除這一筆紀錄?');">
-              <input name="ID" type="hidden" id="ID" value="<?php echo $row_refree['ID']; ?>">
+              <input name="ID" type="hidden" id="ID" value="<?php echo $row_refree['id']; ?>">
               <input type="submit" name="Submit" value="刪除">
                           </form></td>
           </tr>

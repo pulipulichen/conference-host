@@ -48,13 +48,13 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "receipt_update")) {
   
     
 //將所有資料設定為未確認N
-   $SQL = "UPDATE receipt SET Confirmed ='N'";
+   $SQL = "UPDATE receipt SET confirmed ='N'";
    mysql_select_db($database_conn, $conn);
    $Result1 = mysql_query($SQL, $conn) or die(mysql_error());
    
    //判斷有勾選的會員Y
    foreach($_POST['paid_chk'] as $value){
-     $SQL = "UPDATE receipt SET Confirmed ='Y' where memberid='".$value."'";
+     $SQL = "UPDATE receipt SET confirmed ='Y' where memberid='".$value."'";
      mysql_select_db($database_conn, $conn);
      $Result1 = mysql_query($SQL, $conn) or die(mysql_error());
 	}
@@ -130,10 +130,12 @@ function popUpWindow(URLStr, left, top, width, height)
         <td height="70"><span class="style3"><?php echo $row_receipt['memberid']; ?></span></td>
 		<?php 
 		//身分別判斷(作者(至少一篇/一般(無投稿))
-		if($row_receipt['paper']=="Y")
-		 $paper="<font color=red><b>作者(至少投稿一篇)</font>";
-		else
-		 $paper="<font color=blue><b>一般(無投稿)</font>";		
+		if($row_receipt['paper']=="Y") {
+                    $paper="<font color=red><b>作者(至少投稿一篇)</font>";
+                }
+		else {
+                    $paper="<font color=blue><b>一般(無投稿)</font>";
+                }
 		 
 		 $path="../upload/".$row_receipt['memberid']."/";
 		 $filename = glob($path."receipt.*");
@@ -146,10 +148,12 @@ function popUpWindow(URLStr, left, top, width, height)
 		<td><a href="<?php echo $filename[0]; ?>" target="_blank" class="style3">點此查看收據</a></td>
 		<?php 
 		//帳款確認功能
-		 if($row_receipt['Confirmed']=='Y')
-		 $paid="checked";
-		 else
-		 $paid="";
+		 if($row_receipt['Confirmed']=='Y') {
+                     $paid="checked";
+                 }
+		 else {
+                     $paid="";
+                 }
 		?>
         <td><span class="style3"></span>
             <label>
@@ -167,5 +171,4 @@ function popUpWindow(URLStr, left, top, width, height)
 </body>
 </html>
 <?php
-mysql_free_result($receipt);
-?>
+//mysql_free_result($receipt);

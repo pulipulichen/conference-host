@@ -149,7 +149,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "upload")) {
     rename($path."abstract-",$path."abstract-".$serialname);
     rename($path."paper-",$path."paper-".$serialname);
     @$totalRows_for_serial = mysql_num_rows($for_serial);
-    $updatesql="UPDATE upload SET File_paper='paper-".$serialname."', File_abstract='abstract-".$serialname."' WHERE Paper_serial=".$row_for_serial['Paper_serial'];
+    $updatesql="UPDATE upload SET file_paper='paper-".$serialname."', file_abstract='abstract-".$serialname."' WHERE paper_serial=".$row_for_serial['paper_serial'];
     $Result2=mysql_query($updatesql,$conn);
     @mysql_free_result($for_serial);
 }}
@@ -309,11 +309,13 @@ else {
           </font></td>
         </tr>
         <tr class="content">
-          <td colspan="2" align="right" nowrap class="content"><font size="2"><font color="#FF0000" size="2">*</font><label id="Phonelabel" for="Phone">聯絡電話</label>:</font></td>
+          <td colspan="2" align="right" nowrap class="content">
+              <font size="2"><font color="#FF0000" size="2">*</font><label id="Phonelabel" for="Phone">聯絡電話</label>:</font></td>
           <td><input name="Phone" type="text" id="Phone" size="25"></td>
         </tr>
         <tr class="content">
-          <td colspan="2" align="right" nowrap class="content"><font size="2"><label id="Faxlabel" for="Fax">Fax</label>:</font></td>
+          <td colspan="2" align="right" nowrap class="content">
+              <font size="2"><label id="Faxlabel" for="Fax">Fax</label>:</font></td>
           <td><font>
             <input name="Fax" type="text" id="Fax" size="25">
           </font></td>

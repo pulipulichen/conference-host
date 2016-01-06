@@ -126,7 +126,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "upload")) {
 
 //查詢是否有投稿
 mysql_select_db($database_conn, $conn);
-$query_view = sprintf("SELECT * FROM upload WHERE Member = '" . $_SESSION['MM_Username'] ."'", $colname_view);
+$query_view = sprintf("SELECT * FROM upload WHERE member = '" . $_SESSION['MM_Username'] ."'", $colname_view);
 $view = mysql_query($query_view, $conn) or die(mysql_error());
 $row_view = mysql_fetch_assoc($view);
 $totalRows_view = mysql_num_rows($view);
@@ -302,7 +302,7 @@ if($row_view['Confirmed'] == "N" || $row_view == false ){
 		  <?php
 		  //查詢投稿紀錄
 mysql_select_db($database_conn, $conn);
-$query_view = sprintf("SELECT * FROM upload WHERE Member = '" . $_SESSION['MM_Username'] ."'", $colname_view);
+$query_view = sprintf("SELECT * FROM upload WHERE member = '" . $_SESSION['MM_Username'] ."'", $colname_view);
 $view = mysql_query($query_view, $conn) or die(mysql_error());
 $row_view = mysql_fetch_assoc($view);
 $totalRows_view = mysql_num_rows($view);
@@ -313,7 +313,7 @@ $totalRows_view = mysql_num_rows($view);
 	   <?php 
 	   if ($row_view)
 	   do { ?>
- 		  序號:<?php echo $row_view['Paper_serial']; ?>. <?php echo $row_view['Topic']; ?><br>
+ 		  序號:<?php echo $row_view['paper_serial']; ?>. <?php echo $row_view['Topic']; ?><br>
     	<?php } while ($row_view = mysql_fetch_assoc($view)); 
 		else
 		 echo "無投稿紀錄";

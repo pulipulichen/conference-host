@@ -5,7 +5,7 @@ if (isset($_GET['id'])) {
   $colname_referee = (get_magic_quotes_gpc()) ? $_GET['id'] : addslashes($_GET['id']);
 }
 mysql_select_db($database_conn, $conn);
-$query_referee = sprintf("SELECT ID, name, location, profession, distribute FROM referee WHERE ID = '%s'", $colname_referee);
+$query_referee = sprintf("SELECT id, name, location, profession, distribute FROM referee WHERE id = '%s'", $colname_referee);
 $referee = mysql_query($query_referee, $conn) or die(mysql_error());
 $row_referee = mysql_fetch_assoc($referee);
 $totalRows_referee = mysql_num_rows($referee);

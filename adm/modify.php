@@ -45,7 +45,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update")) {
 	}
   }
   unset($first);
-  $updateSQL = sprintf("UPDATE referee SET name=%s, location=%s, affiliation=%s, profession=%s, phone=%s, email=%s, address=%s WHERE ID=%s",
+  $updateSQL = sprintf("UPDATE referee SET name=%s, location=%s, affiliation=%s, profession=%s, phone=%s, email=%s, address=%s WHERE id=%s",
                        GetSQLValueString($_POST['name'], "text"),
 					   GetSQLValueString($_POST['location'], "text"),
                        GetSQLValueString($_POST['affiliation'], "text"),
@@ -65,7 +65,7 @@ if (isset($_POST['ID'])) {
   $colname_modify = (get_magic_quotes_gpc()) ? $_POST['ID'] : addslashes($_POST['ID']);
 }
 mysql_select_db($database_conn, $conn);
-$query_modify = sprintf("SELECT * FROM referee WHERE ID = '%s'", $colname_modify);
+$query_modify = sprintf("SELECT * FROM referee WHERE id = '%s'", $colname_modify);
 $modify = mysql_query($query_modify, $conn) or die(mysql_error());
 $row_modify = mysql_fetch_assoc($modify);
 $totalRows_modify = mysql_num_rows($modify);

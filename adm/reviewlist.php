@@ -32,7 +32,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "receive")) {
-  $updateSQL = sprintf("UPDATE upload SET receive=%s WHERE Paper_serial=%s",
+  $updateSQL = sprintf("UPDATE upload SET receive=%s WHERE paper_serial=%s",
   				 GetSQLValueString($_POST['receive'], "text"),
 				 GetSQLValueString($_POST['Paper_serial'], "int"));
 
@@ -127,10 +127,10 @@ function popUpWindow(URLStr)
     <td width="8%">通知</td>
   </tr>
   <?php do { 
-$query_paper = sprintf("SELECT member, topic, receive FROM upload WHERE Paper_serial=%d",$row_paper_review['paper']);
+$query_paper = sprintf("SELECT member, topic, receive FROM upload WHERE paper_serial=%d",$row_paper_review['paper']);
 $paper = mysql_query($query_paper, $conn) or die(mysql_error());
 $row_paper = mysql_fetch_assoc($paper);
-$query_name = sprintf("SELECT name,id FROM member WHERE ID='%s'",$row_paper['member']);
+$query_name = sprintf("SELECT name,id FROM member WHERE id='%s'",$row_paper['member']);
 $name = mysql_query($query_name, $conn) or die(mysql_error());
 $row_name = mysql_fetch_assoc($name);
 

@@ -9,7 +9,7 @@ if(isset($_POST['list4']))$paper[4]=$_POST['list4'];
 if(isset($_POST['list5']))$paper[5]=$_POST['list5'];
 require_once('../Connections/conn.php');
 mysql_select_db($database_conn, $conn);
-$query_notify = sprintf("SELECT name, password, location, email  FROM referee WHERE ID='%s'",$id);
+$query_notify = sprintf("SELECT name, password, location, email  FROM referee WHERE id='%s'",$id);
 $notify = mysql_query($query_notify, $conn) or die(mysql_error());
 $row_notify = mysql_fetch_assoc($notify);
 $totalRows_notify = mysql_num_rows($notify);
@@ -27,7 +27,7 @@ $totalRows_notify = mysql_num_rows($notify);
   }
 
   for ($i = 0; $i < count($paper); $i++) {
-    $query_paperq = sprintf("SELECT Topic FROM upload WHERE Paper_serial=%d",$paper[$i]);
+    $query_paperq = sprintf("SELECT topic FROM upload WHERE paper_serial=%d",$paper[$i]);
     $paperq = mysql_query($query_paperq, $conn) or die(mysql_error());
     $row_paperq = mysql_fetch_assoc($paperq);
     $query_again = sprintf("SELECT * FROM paper_distribute WHERE paper=%d",$paper[$i]);
@@ -42,8 +42,9 @@ $totalRows_notify = mysql_num_rows($notify);
       $query_again = sprintf("SELECT * FROM paper_distribute WHERE paper=%d",$paper[$i]);
       $again = mysql_query($query_again, $conn) or die(mysql_error());
       $row_again = mysql_fetch_assoc($again);
-      if ((!strcmp($row_again['referee1'], $id) && !strcmp($row_again['finish1'], 'n'))||(!strcmp($row_again['referee2'], $id) && !strcmp($row_again['finish2'], 'n')) || (!strcmp($row_again['referee3'],$id) && !strcmp($row_again['finish3'], 'n')))
+      if ((!strcmp($row_again['referee1'], $id) && !strcmp($row_again['finish1'], 'n'))||(!strcmp($row_again['referee2'], $id) && !strcmp($row_again['finish2'], 'n')) || (!strcmp($row_again['referee3'],$id) && !strcmp($row_again['finish3'], 'n'))) {
         $msg .= sprintf("論文編號: %d\n論文名稱: %s\n\n", $paper[$i],stripcslashes($row_paperq['Topic']));
+      }
     }
   }
   if ($_POST['again'] == 0) {
@@ -79,7 +80,7 @@ $totalRows_notify = mysql_num_rows($notify);
 //   }
 // 
 //   for ($i = 0; $i < count($paper); $i++) {
-//     $query_paperq = sprintf("SELECT Topic FROM upload WHERE Paper_serial=%d",$paper[$i]);
+//     $query_paperq = sprintf("SELECT topic FROM upload WHERE paper_serial=%d",$paper[$i]);
 //     $paperq = mysql_query($query_paperq, $conn) or die(mysql_error());
 //     $row_paperq = mysql_fetch_assoc($paperq);
 //     if ($_POST['again'] == 0) {
@@ -127,7 +128,7 @@ if (mail($mailto, $subject, $msg, $mailfrom)) {
 </form></div>
 </body></html>
 <?php
-  $query_alart = sprintf("UPDATE referee SET alart='y' WHERE ID='%s'",$id);
+  $query_alart = sprintf("UPDATE referee SET alart='y' WHERE id='%s'",$id);
   $alart = mysql_query($query_alart, $conn) or die(mysql_error());
 } else {
 ?>

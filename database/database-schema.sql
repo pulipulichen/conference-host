@@ -32,12 +32,12 @@ CREATE TABLE IF NOT EXISTS `member` (
   `id` varchar(32) NOT NULL DEFAULT '',
   `pw` varchar(32) NOT NULL DEFAULT '',
   `email` varchar(64) NOT NULL DEFAULT '',
-  `Affiliation` varchar(32) DEFAULT NULL,
-  `Position` varchar(32) DEFAULT NULL,
-  `Phone` varchar(32) DEFAULT NULL,
-  `Fax` varchar(32) DEFAULT NULL,
-  `City` varchar(32) DEFAULT NULL,
-  `Address` varchar(64) DEFAULT NULL
+  `affiliation` varchar(32) DEFAULT NULL,
+  `position` varchar(32) DEFAULT NULL,
+  `phone` varchar(32) DEFAULT NULL,
+  `fax` varchar(32) DEFAULT NULL,
+  `city` varchar(32) DEFAULT NULL,
+  `address` varchar(64) DEFAULT NULL
   --PRIMARY KEY (`Member_serial`),
   --UNIQUE KEY `Member_serial` (`Member_serial`)
 );
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `receipt` (
   `email` varchar(64) DEFAULT NULL,
   `memo` text,
   `uploadtime` varchar(64) NOT NULL,
-  `Confirmed` varchar(2) NOT NULL DEFAULT 'N'
+  `confirmed` varchar(2) NOT NULL DEFAULT 'N'
   --PRIMARY KEY (`s`)
 );
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `receipt` (
 --
 
 CREATE TABLE IF NOT EXISTS `referee` (
-  `ID` char(31) NOT NULL DEFAULT '',
+  `id` char(31) NOT NULL DEFAULT '',
   `password` char(31) NOT NULL DEFAULT '',
   `name` char(31) NOT NULL DEFAULT '',
   `location` enum('oral','network') NOT NULL DEFAULT 'oral',
@@ -130,30 +130,30 @@ CREATE TABLE IF NOT EXISTS `review` (
 --
 
 CREATE TABLE IF NOT EXISTS `upload` (
-  `Paper_serial` int(11) NOT NULL,
-  `Member` varchar(32) NOT NULL DEFAULT '',
-  `Topic` varchar(255) NOT NULL,
-  `Class` varchar(32) NOT NULL DEFAULT '',
-  `Group` varchar(32) NOT NULL DEFAULT '',
-  `Contact` varchar(32) NOT NULL DEFAULT '',
-  `Affiliation` varchar(32) NOT NULL DEFAULT '',
-  `Email` varchar(64) NOT NULL DEFAULT '',
-  `Phone` varchar(32) DEFAULT NULL,
-  `Fax` varchar(32) DEFAULT NULL,
-  `Author1` varchar(32) DEFAULT NULL,
-  `Author1_email` varchar(96) DEFAULT NULL,
-  `Author2` varchar(32) DEFAULT NULL,
-  `Author2_email` varchar(96) DEFAULT NULL,
-  `Author3` varchar(32) DEFAULT NULL,
-  `Author3_email` varchar(96) DEFAULT NULL,
-  `Author4` varchar(32) DEFAULT NULL,
-  `Author4_email` varchar(96) DEFAULT NULL,
-  `Author5` varchar(32) DEFAULT NULL,
-  `Author5_email` varchar(96) DEFAULT NULL,
-  `Author6` varchar(32) DEFAULT NULL,
-  `Author6_email` varchar(96) DEFAULT NULL,
-  `File_paper` varchar(32) DEFAULT NULL,
-  `File_abstract` varchar(32) DEFAULT NULL,
+  `paper_serial` int(11) NOT NULL,
+  `member` varchar(32) NOT NULL DEFAULT '',
+  `topic` varchar(255) NOT NULL,
+  `class` varchar(32) NOT NULL DEFAULT '',
+  `group` varchar(32) NOT NULL DEFAULT '',
+  `contact` varchar(32) NOT NULL DEFAULT '',
+  `affiliation` varchar(32) NOT NULL DEFAULT '',
+  `email` varchar(64) NOT NULL DEFAULT '',
+  `phone` varchar(32) DEFAULT NULL,
+  `fax` varchar(32) DEFAULT NULL,
+  `author1` varchar(32) DEFAULT NULL,
+  `author1_email` varchar(96) DEFAULT NULL,
+  `author2` varchar(32) DEFAULT NULL,
+  `author2_email` varchar(96) DEFAULT NULL,
+  `author3` varchar(32) DEFAULT NULL,
+  `author3_email` varchar(96) DEFAULT NULL,
+  `author4` varchar(32) DEFAULT NULL,
+  `author4_email` varchar(96) DEFAULT NULL,
+  `author5` varchar(32) DEFAULT NULL,
+  `author5_email` varchar(96) DEFAULT NULL,
+  `author6` varchar(32) DEFAULT NULL,
+  `author6_email` varchar(96) DEFAULT NULL,
+  `file_paper` varchar(32) DEFAULT NULL,
+  `file_abstract` varchar(32) DEFAULT NULL,
   `receive` enum('a','r','n') NOT NULL DEFAULT 'n',
   `camready` enum('y','n') NOT NULL DEFAULT 'n'
   --PRIMARY KEY (`Paper_serial`),

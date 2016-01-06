@@ -52,7 +52,7 @@ $query_review = sprintf("SELECT * FROM paper_distribute WHERE referee1 = '%s' OR
 $review = mysql_query($query_review, $conn) or die(mysql_error());
 $row_review = mysql_fetch_assoc($review);
 $totalRows_review = mysql_num_rows($review);
-$query_name = sprintf("SELECT name FROM referee WHERE ID = '%s'", $colname_review);
+$query_name = sprintf("SELECT name FROM referee WHERE id = '%s'", $colname_review);
 $name = mysql_query($query_name, $conn) or die(mysql_error());
 $row_name = mysql_fetch_assoc($name);
 ?>
@@ -89,20 +89,20 @@ $row_name = mysql_fetch_assoc($name);
     <td width="10%"><div align="center">審閱內容</div></td>
   </tr>
   <?php do { 
-		$query_paper = sprintf("SELECT Paper_serial, Member, Topic, `Class`, `Group` FROM upload WHERE Paper_serial = %d",$row_review['paper']);
+		$query_paper = sprintf("SELECT paper_serial, member, topic, `class`, `group` FROM upload WHERE paper_serial = %d",$row_review['paper']);
 		$paper = mysql_query($query_paper, $conn) or die(mysql_error());
 		$row_paper = mysql_fetch_assoc($paper);?>
   <form name="review" method="post" action="review.php"><tr>
       <td class="content"><div align="center"><?php echo $row_review['paper']; ?></div></td>
-      <td class="content"><?php echo $row_paper['Topic']; ?></td>
-      <td class="content"><div align="center"><?php if(!strcmp($row_paper['Group'],'oral'))echo '口頭發表組';else echo '網路發表組'; ?></div></td>
-      <td><div align="center"><a target="_blank" href="../../upload/<?php echo $row_paper['Member'].'/paper-'.$row_review['paper'].'.pdf'; ?>"><img src="../../images/menu/pdf.gif" border="0"></a></div></td>
-      <td><div align="center"><a target="_blank" href="../../upload/<?php echo $row_paper['Member'].'/abstract-'.$row_review['paper'].'.pdf'; ?>"><img src="../../images/menu/pdf.gif" border="0"></a></div></td>
+      <td class="content"><?php echo $row_paper['topic']; ?></td>
+      <td class="content"><div align="center"><?php if(!strcmp($row_paper['group'],'oral'))echo '口頭發表組';else echo '網路發表組'; ?></div></td>
+      <td><div align="center"><a target="_blank" href="../../upload/<?php echo $row_paper['member'].'/paper-'.$row_review['paper'].'.pdf'; ?>"><img src="../../images/menu/pdf.gif" border="0"></a></div></td>
+      <td><div align="center"><a target="_blank" href="../../upload/<?php echo $row_paper['member'].'/abstract-'.$row_review['paper'].'.pdf'; ?>"><img src="../../images/menu/pdf.gif" border="0"></a></div></td>
 	  <td><div align="center">
 	    
 	      <input type="hidden" name="paper" value="<?php echo $row_review['paper']; ?>">
-	      <input type="hidden" name="topic" value="<?php echo $row_paper['Topic']; ?>">
-	      <input type="hidden" name="location" value="<?php echo $row_paper['Group']; ?>">
+	      <input type="hidden" name="topic" value="<?php echo $row_paper['topic']; ?>">
+	      <input type="hidden" name="location" value="<?php echo $row_paper['group']; ?>">
 	      <input type="submit" name="Submit" value="填寫"
 		  <?php 
 		  	if(!strcmp($row_review['referee1'],$_SESSION['MM_Username']) && !strcmp($row_review['finish1'],'y'))echo ' disabled';

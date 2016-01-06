@@ -35,7 +35,7 @@ $totalRows_send = mysql_num_rows($send);
                 [摘要]
             </a> 
             / 
-            <a href="../upload/<?php echo $row_send['member']; ?>/paper-<?php echo $row_send['Paper_serial']; ?>.pdf" target="_blank">
+            <a href="../upload/<?php echo $row_send['member']; ?>/paper-<?php echo $row_send['paper_serial']; ?>.pdf" target="_blank">
                 [全文]
             </a>
         </div>

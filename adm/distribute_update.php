@@ -24,7 +24,7 @@ $refarray['NULL']=1;
 unset($refarray['NULL']);
 foreach($refarray as $key => $value)
 {
-	$insertSQL = sprintf("UPDATE referee SET distribute=%d WHERE ID='%s'", $value, $key);
+	$insertSQL = sprintf("UPDATE referee SET distribute=%d WHERE id='%s'", $value, $key);
 	mysql_select_db($database_conn, $conn);
 	$Result1 = mysql_query($insertSQL, $conn) or die(mysql_error());
 }
