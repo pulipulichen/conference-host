@@ -1,0 +1,24 @@
+$Member_for_serial = "0";
+if (isset($_SESSION['Member'])) {
+  $Member_for_serial = (get_magic_quotes_gpc()) ? $_SESSION['Member'] : addslashes($_SESSION['Member']);
+}
+$Topic_for_serial = "0";
+if (isset($_SESSION['Topic'])) {
+  $Topic_for_serial = (get_magic_quotes_gpc()) ? $_SESSION['Topic'] : addslashes($_SESSION['Topic']);
+}
+mysql_select_db($database_conn, $conn);
+$query_for_serial = sprintf("SELECT Paper_serial, Member, Topic FROM upload WHERE Member = '%s' AND Topic='%s'", $Member_for_serial,$Topic_for_serial);
+$for_serial = mysql_query($query_for_serial, $conn) or die(mysql_error());
+$row_for_serial = mysql_fetch_assoc($for_serial);
+$totalRows_for_serial = mysql_num_rows($for_serial);
+  $subject="2005TAAI線上投稿確認";
+  $content=$_SESSION['MM_Username']."您好:\n\n".
+		   "您於".date("m月d日(D)",mktime())."投稿至TAAI2005的論文(編號".$row_for_serial['Paper_serial'].")：\n".
+		   "論文題目：".$_POST['Topic']."\n".
+		   "已順利完成檔案上傳並登錄於資料庫中。若您後續有任何問題，請與我們聯繫(taai2005@nuk.edu.tw)。\n\n".
+		   "第十屆人工智慧與應用研討會\ntaai2005@nuk.edu.tw";
+  $mailto=$_POST['Email'];
+  $mailfrom='From: taai2005@nuk.edu.tw';
+  echo $content;
+  mail($mailto,$subject,$content,$mailfrom);
+  mysql_free_result($for_serial);

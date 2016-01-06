@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>上傳進度</title>
+</head>
+<BODY topmargin="15" bgcolor="#CCCCCC">
+<script language="JavaScript">
+<!--
+ns4 = (document.layers)? true:false
+ie4 = (document.all)? true:false
+
+function hide(id) {
+if (ns4) document.layers[id].visibility = "hide"
+else if (ie4) document.all[id].style.visibility = "hidden"
+}
+function init() {
+if (ns4) block = document.blockDiv
+if (ie4) block = blockDiv.style
+block.xpos = parseInt(block.left)
+}
+function slide() {
+if (block.xpos < 292) {
+block.xpos += 10
+block.left = block.xpos
+setTimeout("slide()",300)
+}
+else
+{
+restart()
+}
+}
+
+function restart() {
+block.xpos = 142
+block.left = block.xpos
+slide()
+}
+//-->
+</SCRIPT>
+<p align=center>　
+<table align=center width="220">
+<tr>
+<td width=70 style="font-size:9pt" align=right>
+檔案傳送中
+</td>
+<td width="150" bgcolor="#000000">
+
+<DIV ID="blockDiv" STYLE="position:absolute ; left:172px; top:22px ; width:5px ; height:5px; clip:rect(0px 5px 14px 0px); background-color:#FF0000; layer-background-color:#000000;"></div>
+</td></tr></table>
+<Script>
+init()
+slide()
+</script>
+</BODY>
+</html>

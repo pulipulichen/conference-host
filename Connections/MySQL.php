@@ -1,0 +1,28 @@
+<?php
+class DB {
+    var $link;
+
+    function DB($host, $dbUser, $dbPass, $dbName) {
+        $this->host = $host;
+        $this->dbUser = $dbUser;
+        $this->dbPass = $dbPass;
+        $this->dbName = $dbName;
+        $this->connect();
+    }
+
+    function connect() {
+        $this->link = mysql_connect($this->host, $this->dbUser, $this->dbPass);
+    }
+
+    function query($statement) {
+        return mysql_db_query($this->dbName, $statement, $this->link);
+    }
+
+    function size($statement) {
+        $Rlt = mysql_db_query($this->dbName, $statement, $this->link);
+        list($row) = mysql_fetch_row($Rlt);
+        return $row;
+    }
+}
+
+$db = &new DB('localhost:3306', 'root', 'password', 'conference_host');
